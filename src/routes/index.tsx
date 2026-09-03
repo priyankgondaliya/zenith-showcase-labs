@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
 
 export const Route = createFileRoute("/")({
@@ -109,8 +109,8 @@ const bars = [
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-body antialiased selection:bg-primary/20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
+    <div className="min-h-screen metal-bg text-foreground font-body antialiased selection:bg-primary/20">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
           <div className="flex items-center gap-2.5">
             <BrandMark />
@@ -129,13 +129,16 @@ function Index() {
             <a href="#engage" className="transition-colors duration-200 hover:text-foreground">
               Engage
             </a>
+            <Link to="/contact" className="transition-colors duration-200 hover:text-foreground">
+              Contact
+            </Link>
           </nav>
-          <a
-            href="#engage"
+          <Link
+            to="/contact"
             className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
           >
             Start a build
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -154,12 +157,12 @@ function Index() {
               specification.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3 [animation:rise_800ms_var(--ease-machined)_400ms_both]">
-              <a
-                href="#engage"
+              <Link
+                to="/contact"
                 className="rounded-lg bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
               >
                 Book an engineering audit
-              </a>
+              </Link>
               <a
                 href="#work"
                 className="rounded-lg border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors duration-200 hover:border-foreground/30"
@@ -400,6 +403,12 @@ function Index() {
             >
               hello@vektara.studio
             </a>
+            <Link
+              to="/contact"
+              className="mt-2 inline-block text-sm font-medium text-foreground underline decoration-steel/60 underline-offset-4 transition-colors duration-200 hover:text-primary"
+            >
+              Open the contact page →
+            </Link>
             <p className="mt-3 text-sm text-muted">Response within one business day.</p>
           </div>
           <div className="md:col-span-3">
