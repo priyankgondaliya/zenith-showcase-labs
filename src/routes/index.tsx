@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -180,11 +181,15 @@ function Index() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <div className="rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+            <div className="relative overflow-hidden rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               <div className="rounded-xl bg-background p-6 ring-1 ring-black/5">
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                   <span>Build status</span>
-                  <span className="text-primary">Operational</span>
+                  <span className="flex items-center gap-2 text-primary">
+                    <span className="size-1.5 rounded-full bg-primary animate-pulse-ring" />
+                    Operational
+                  </span>
                 </div>
                 <div className="mt-5 space-y-4">
                   {bars.map((b) => (
@@ -195,7 +200,7 @@ function Index() {
                       </div>
                       <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-foreground/10">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-steel to-primary"
+                          className="h-full rounded-full bg-gradient-to-r from-steel to-primary animate-bar-fill"
                           style={{ width: b.w }}
                         />
                       </div>
@@ -220,7 +225,37 @@ function Index() {
             </div>
           </div>
         </section>
+      </main>
 
+      <div className="overflow-hidden border-y border-border bg-foreground/[0.03] py-3.5">
+        <div className="flex w-max animate-marquee gap-10 font-mono text-[12px] uppercase tracking-[0.2em] text-muted">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 gap-10" aria-hidden={copy === 1}>
+              {[
+                "React",
+                "Next.js",
+                "Node.js",
+                "TypeScript",
+                "Laravel",
+                "PHP 8",
+                "Python",
+                "FastAPI",
+                "PostgreSQL",
+                "AWS",
+                "Docker",
+                "GraphQL",
+              ].map((t) => (
+                <span key={t} className="flex items-center gap-10">
+                  {t}
+                  <span className="size-1 rounded-full bg-steel" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <main className="mx-auto max-w-6xl px-6">
         <section id="stacks" className="border-t border-border py-20">
           <div className="flex items-end justify-between gap-6">
             <div>
@@ -236,9 +271,9 @@ function Index() {
             </p>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {stacks.map((s) => (
+            {stacks.map((s, i) => (
+              <Reveal key={s.n} delay={i * 120}>
               <div
-                key={s.n}
                 className="rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
               >
                 <div className="flex items-center justify-between">
@@ -260,6 +295,7 @@ function Index() {
                   ))}
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -274,8 +310,9 @@ function Index() {
             </h2>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {passes.map((p) => (
-              <div key={p.n} className="relative border-t border-border pt-6">
+            {passes.map((p, i) => (
+              <Reveal key={p.n} delay={i * 120}>
+              <div className="relative border-t border-border pt-6">
                 <span
                   className={`absolute -top-[5px] left-0 size-2.5 rounded-full ${p.dot} ring-4 ring-background`}
                 />
@@ -283,6 +320,7 @@ function Index() {
                 <h3 className="mt-2 font-display text-lg font-bold">{p.title}</h3>
                 <p className="mt-2 text-sm text-pretty text-muted">{p.body}</p>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -297,9 +335,9 @@ function Index() {
             </h2>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {proof.map((p) => (
+            {proof.map((p, i) => (
+              <Reveal key={p.title} delay={i * 120}>
               <div
-                key={p.title}
                 className="flex flex-col rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
               >
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
@@ -317,6 +355,7 @@ function Index() {
                   <div className="font-mono text-[11px] text-muted">{p.weeks}</div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -329,7 +368,8 @@ function Index() {
             Two ways to work with us
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-border p-7">
+            <Reveal>
+            <div className="rounded-2xl border border-border p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60">
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Dedicated team</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
@@ -353,7 +393,10 @@ function Index() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl plate p-7 ring-1 ring-black/10">
+            </Reveal>
+            <Reveal delay={140}>
+            <div className="relative overflow-hidden rounded-2xl plate p-7 ring-1 ring-black/10">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Fixed scope</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
@@ -377,6 +420,7 @@ function Index() {
                 ))}
               </ul>
             </div>
+            </Reveal>
           </div>
         </section>
       </main>

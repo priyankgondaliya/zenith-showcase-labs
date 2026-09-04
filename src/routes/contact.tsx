@@ -97,7 +97,8 @@ function ContactPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+            <div className="relative overflow-hidden rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               <div className="rounded-xl bg-background p-7 ring-1 ring-black/5 sm:p-9">
                 {sent ? (
                   <div className="py-14 text-center">
