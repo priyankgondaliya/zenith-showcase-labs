@@ -393,7 +393,10 @@ function Index() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl plate p-7 ring-1 ring-black/10">
+            </Reveal>
+            <Reveal delay={140}>
+            <div className="relative overflow-hidden rounded-2xl plate p-7 ring-1 ring-black/10">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Fixed scope</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
