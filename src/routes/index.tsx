@@ -200,7 +200,7 @@ function Index() {
                       </div>
                       <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-foreground/10">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-steel to-primary"
+                          className="h-full rounded-full bg-gradient-to-r from-steel to-primary animate-bar-fill"
                           style={{ width: b.w }}
                         />
                       </div>
@@ -225,7 +225,37 @@ function Index() {
             </div>
           </div>
         </section>
+      </main>
 
+      <div className="overflow-hidden border-y border-border bg-foreground/[0.03] py-3.5">
+        <div className="flex w-max animate-marquee gap-10 font-mono text-[12px] uppercase tracking-[0.2em] text-muted">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 gap-10" aria-hidden={copy === 1}>
+              {[
+                "React",
+                "Next.js",
+                "Node.js",
+                "TypeScript",
+                "Laravel",
+                "PHP 8",
+                "Python",
+                "FastAPI",
+                "PostgreSQL",
+                "AWS",
+                "Docker",
+                "GraphQL",
+              ].map((t) => (
+                <span key={t} className="flex items-center gap-10">
+                  {t}
+                  <span className="size-1 rounded-full bg-steel" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <main className="mx-auto max-w-6xl px-6">
         <section id="stacks" className="border-t border-border py-20">
           <div className="flex items-end justify-between gap-6">
             <div>
