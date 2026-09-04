@@ -368,7 +368,8 @@ function Index() {
             Two ways to work with us
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-border p-7">
+            <Reveal>
+            <div className="rounded-2xl border border-border p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60">
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Dedicated team</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
