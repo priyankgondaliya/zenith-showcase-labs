@@ -271,9 +271,9 @@ function Index() {
             </p>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {stacks.map((s) => (
+            {stacks.map((s, i) => (
+              <Reveal key={s.n} delay={i * 120}>
               <div
-                key={s.n}
                 className="rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
               >
                 <div className="flex items-center justify-between">
@@ -295,6 +295,7 @@ function Index() {
                   ))}
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
