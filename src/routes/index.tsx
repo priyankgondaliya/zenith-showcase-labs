@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
 import { Reveal } from "@/components/Reveal";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
   head: () => ({
