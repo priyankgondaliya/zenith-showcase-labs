@@ -420,6 +420,7 @@ function Index() {
                 ))}
               </ul>
             </div>
+            </Reveal>
           </div>
         </section>
       </main>
