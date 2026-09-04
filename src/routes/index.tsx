@@ -335,9 +335,9 @@ function Index() {
             </h2>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {proof.map((p) => (
+            {proof.map((p, i) => (
+              <Reveal key={p.title} delay={i * 120}>
               <div
-                key={p.title}
                 className="flex flex-col rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
               >
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
@@ -355,6 +355,7 @@ function Index() {
                   <div className="font-mono text-[11px] text-muted">{p.weeks}</div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
