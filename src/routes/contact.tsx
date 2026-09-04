@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import { BrandMark } from "@/components/BrandMark";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -42,20 +42,7 @@ function ContactPage() {
 
   return (
     <div className="min-h-screen metal-bg text-foreground font-body antialiased selection:bg-primary/20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-          <Link to="/" className="flex items-center gap-2.5">
-            <BrandMark />
-            <span className="font-display text-[19px] font-bold tracking-tight">Vektara</span>
-          </Link>
-          <Link
-            to="/"
-            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-200 hover:border-foreground/30"
-          >
-            ← Back to site
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6 pb-24">
         <section className="grid grid-cols-1 gap-12 pt-14 lg:grid-cols-12 lg:pt-20">

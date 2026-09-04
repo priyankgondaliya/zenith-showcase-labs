@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
 import { Reveal } from "@/components/Reveal";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -111,37 +112,7 @@ const bars = [
 function Index() {
   return (
     <div className="min-h-screen metal-bg text-foreground font-body antialiased selection:bg-primary/20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-          <div className="flex items-center gap-2.5">
-            <BrandMark />
-            <span className="font-display text-[19px] font-bold tracking-tight">Vektara</span>
-          </div>
-          <nav className="hidden items-center gap-7 text-sm text-muted md:flex">
-            <a href="#stacks" className="transition-colors duration-200 hover:text-foreground">
-              Stacks
-            </a>
-            <a href="#process" className="transition-colors duration-200 hover:text-foreground">
-              Process
-            </a>
-            <a href="#work" className="transition-colors duration-200 hover:text-foreground">
-              Work
-            </a>
-            <a href="#engage" className="transition-colors duration-200 hover:text-foreground">
-              Engage
-            </a>
-            <Link to="/contact" className="transition-colors duration-200 hover:text-foreground">
-              Contact
-            </Link>
-          </nav>
-          <Link
-            to="/contact"
-            className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
-          >
-            Start a build
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6">
         <section className="grid grid-cols-1 gap-10 pt-14 pb-20 lg:grid-cols-12 lg:gap-8 lg:pt-24">
