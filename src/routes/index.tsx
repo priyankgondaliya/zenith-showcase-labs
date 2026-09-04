@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
+import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -180,11 +181,15 @@ function Index() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <div className="rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+            <div className="relative overflow-hidden rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               <div className="rounded-xl bg-background p-6 ring-1 ring-black/5">
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                   <span>Build status</span>
-                  <span className="text-primary">Operational</span>
+                  <span className="flex items-center gap-2 text-primary">
+                    <span className="size-1.5 rounded-full bg-primary animate-pulse-ring" />
+                    Operational
+                  </span>
                 </div>
                 <div className="mt-5 space-y-4">
                   {bars.map((b) => (
