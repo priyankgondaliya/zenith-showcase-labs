@@ -310,8 +310,9 @@ function Index() {
             </h2>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {passes.map((p) => (
-              <div key={p.n} className="relative border-t border-border pt-6">
+            {passes.map((p, i) => (
+              <Reveal key={p.n} delay={i * 120}>
+              <div className="relative border-t border-border pt-6">
                 <span
                   className={`absolute -top-[5px] left-0 size-2.5 rounded-full ${p.dot} ring-4 ring-background`}
                 />
@@ -319,6 +320,7 @@ function Index() {
                 <h3 className="mt-2 font-display text-lg font-bold">{p.title}</h3>
                 <p className="mt-2 text-sm text-pretty text-muted">{p.body}</p>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
