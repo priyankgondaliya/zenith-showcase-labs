@@ -45,7 +45,7 @@ function ContactPage() {
       <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6 pb-24">
-        <section className="grid grid-cols-1 gap-12 pt-14 lg:grid-cols-12 lg:pt-20">
+        <section className="relative grid grid-cols-1 gap-12 overflow-hidden pt-14 lg:grid-cols-12 lg:pt-20">
           <div className="lg:col-span-5">
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-steel [animation:rise_700ms_var(--ease-machined)_both]">
               Contact · Scoping reply in 1 business day
@@ -84,9 +84,9 @@ function ContactPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="relative overflow-hidden rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
-              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-              <div className="rounded-xl bg-background p-7 ring-1 ring-black/5 sm:p-9">
+            <div className="relative overflow-hidden rounded-2xl plate p-1.5 shadow-[var(--shadow-float)] ring-1 ring-foreground/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-background/50 to-transparent" />
+              <div className="rounded-xl bg-background/90 p-7 ring-1 ring-foreground/5 backdrop-blur sm:p-9">
                 {sent ? (
                   <div className="py-14 text-center">
                     <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10">
@@ -167,7 +167,7 @@ function ContactPage() {
                     </label>
                     <button
                       type="submit"
-                      className="w-full rounded-lg bg-foreground px-5 py-3.5 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+                      className="w-full rounded-lg bg-foreground px-5 py-3.5 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg"
                     >
                       Send the brief
                     </button>
