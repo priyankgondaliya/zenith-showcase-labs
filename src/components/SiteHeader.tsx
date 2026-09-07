@@ -10,8 +10,8 @@ const sections = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+    <header className="sticky top-0 z-30 border-b border-border bg-background/75 shadow-sm backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-2.5" aria-label="Vektara home">
           <BrandMark />
           <span className="font-display text-[19px] font-bold tracking-tight">Vektara</span>
@@ -37,7 +37,7 @@ export function SiteHeader() {
         </nav>
         <Link
           to="/contact"
-          className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+            className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg"
         >
           Start a build
         </Link>

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, ArrowUpRight, Check, Code2 } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { Reveal } from "@/components/Reveal";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -115,15 +116,16 @@ function Index() {
       <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6">
-        <section className="grid grid-cols-1 gap-10 pt-14 pb-20 lg:grid-cols-12 lg:gap-8 lg:pt-24">
+        <section className="relative grid grid-cols-1 gap-12 overflow-hidden pt-16 pb-24 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-24">
           <div className="lg:col-span-7">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-steel [animation:rise_700ms_var(--ease-machined)_both]">
-              Remote-first · Engineering studio · EST 2026
-            </p>
-            <h1 className="mt-6 max-w-[16ch] font-display text-5xl font-bold leading-[1.02] tracking-tight text-balance sm:text-6xl [animation:rise_750ms_var(--ease-machined)_120ms_both]">
-              Production-grade software, milled to tolerance.
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary [animation:rise_700ms_var(--ease-machined)_both]">
+              <span className="size-1.5 rounded-full bg-primary animate-pulse-ring" />
+              Senior engineering studio · EST 2026
+            </div>
+            <h1 className="mt-7 max-w-[15ch] font-display text-5xl font-bold leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-7xl [animation:rise_750ms_var(--ease-machined)_120ms_both]">
+              Software engineered for your <span className="text-primary">next market.</span>
             </h1>
-            <p className="mt-6 max-w-[46ch] text-lg text-pretty text-muted [animation:rise_750ms_var(--ease-machined)_260ms_both]">
+            <p className="mt-7 max-w-[48ch] text-lg leading-8 text-pretty text-muted [animation:rise_750ms_var(--ease-machined)_260ms_both]">
               We design, build and ship the platforms ambitious international teams depend on —
               from React and Next.js front-ends to Laravel and Python back-ends, assembled to
               specification.
@@ -131,15 +133,17 @@ function Index() {
             <div className="mt-9 flex flex-wrap items-center gap-3 [animation:rise_800ms_var(--ease-machined)_400ms_both]">
               <Link
                 to="/contact"
-                className="rounded-lg bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-3 text-sm font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
               >
                 Book an engineering audit
+                <ArrowUpRight className="size-4" />
               </Link>
               <a
                 href="#work"
-                className="rounded-lg border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors duration-200 hover:border-foreground/30"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background/50 px-5 py-3 text-sm font-medium text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
               >
                 See the work
+                <ArrowRight className="size-4" />
               </a>
             </div>
             <div className="mt-9 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted [animation:rise_800ms_var(--ease-machined)_520ms_both]">
@@ -151,12 +155,15 @@ function Index() {
               <span>TypeScript</span>
             </div>
           </div>
-          <div className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-2xl plate p-1.5 ring-1 ring-black/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
-              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-              <div className="rounded-xl bg-background p-6 ring-1 ring-black/5">
+          <div className="relative py-6 lg:col-span-5">
+            <div className="pointer-events-none absolute inset-4 animate-machine rounded-full border border-primary/15" />
+            <div className="pointer-events-none absolute inset-10 animate-orbit rounded-full border border-dashed border-steel/30" />
+            <div className="relative overflow-hidden rounded-lg plate p-1.5 shadow-[var(--shadow-float)] ring-1 ring-foreground/10 [animation:rise_800ms_var(--ease-machined)_320ms_both]">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-background/60 to-transparent" />
+              <div className="technical-grid relative overflow-hidden rounded-md bg-background/92 p-6 ring-1 ring-foreground/5 backdrop-blur">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-                  <span>Build status</span>
+                  <span className="flex items-center gap-2"><Code2 className="size-3.5 text-primary" /> Build status</span>
                   <span className="flex items-center gap-2 text-primary">
                     <span className="size-1.5 rounded-full bg-primary animate-pulse-ring" />
                     Operational
@@ -191,6 +198,10 @@ function Index() {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="mt-5 flex items-center gap-2 rounded-md border border-primary/15 bg-primary/5 px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.12em] text-primary">
+                  <Check className="size-3.5" />
+                  Release pipeline verified
                 </div>
               </div>
             </div>
@@ -244,14 +255,15 @@ function Index() {
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
             {stacks.map((s, i) => (
               <Reveal key={s.n} delay={i * 120}>
-              <div
-                className="rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
-              >
+              <div className="chrome-panel card-lift h-full rounded-lg p-6">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
                     {s.tag}
                   </span>
                   <span className="font-mono text-[11px] text-muted">{s.n}</span>
+                </div>
+                <div className="mt-5 grid size-10 place-items-center rounded-md bg-foreground text-background shadow-md">
+                  <Code2 className="size-4" />
                 </div>
                 <h3 className="mt-4 font-display text-xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted">{s.body}</p>
@@ -271,7 +283,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="process" className="border-t border-border py-20">
+        <section id="process" className="border-t border-border py-24">
           <div>
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-steel">
               (b) Process
@@ -283,7 +295,7 @@ function Index() {
           <div className="mt-12 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {passes.map((p, i) => (
               <Reveal key={p.n} delay={i * 120}>
-              <div className="relative border-t border-border pt-6">
+               <div className="group relative border-t border-border pt-6 transition-colors duration-300 hover:border-primary/50">
                 <span
                   className={`absolute -top-[5px] left-0 size-2.5 rounded-full ${p.dot} ring-4 ring-background`}
                 />
@@ -296,7 +308,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="work" className="border-t border-border py-20">
+        <section id="work" className="border-t border-border py-24">
           <div>
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-steel">
               (c) Proof
@@ -308,22 +320,20 @@ function Index() {
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
             {proof.map((p, i) => (
               <Reveal key={p.title} delay={i * 120}>
-              <div
-                className="flex flex-col rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60"
-              >
+              <div className="chrome-panel card-lift flex h-full flex-col rounded-lg p-6">
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
                   {p.meta}
                 </span>
                 <h3 className="mt-3 font-display text-lg font-bold">{p.title}</h3>
                 <p className="mt-2 flex-1 text-sm text-pretty text-muted">{p.body}</p>
-                <div className="mt-6 flex items-end justify-between border-t border-border pt-4">
+                 <div className="mt-6 flex items-end justify-between border-t border-border pt-4">
                   <div>
                     <div className="font-display text-3xl font-bold text-primary">{p.metric}</div>
                     <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
                       {p.label}
                     </div>
                   </div>
-                  <div className="font-mono text-[11px] text-muted">{p.weeks}</div>
+                   <div className="flex items-center gap-1 font-mono text-[11px] text-muted">{p.weeks}<ArrowUpRight className="size-3" /></div>
                 </div>
               </div>
               </Reveal>
@@ -331,7 +341,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="engage" className="border-t border-border py-20">
+        <section id="engage" className="border-t border-border py-24">
           <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-steel">
             (d) Engagement
           </span>
@@ -340,7 +350,7 @@ function Index() {
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <Reveal>
-            <div className="rounded-2xl border border-border p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-steel/60">
+            <div className="chrome-panel card-lift h-full rounded-lg p-7">
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Dedicated team</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
@@ -366,8 +376,8 @@ function Index() {
             </div>
             </Reveal>
             <Reveal delay={140}>
-            <div className="relative overflow-hidden rounded-2xl plate p-7 ring-1 ring-black/10">
-              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+            <div className="card-lift relative h-full overflow-hidden rounded-lg plate p-7 ring-1 ring-foreground/10">
+              <div className="pointer-events-none absolute inset-y-0 w-1/3 animate-sheen bg-gradient-to-r from-transparent via-background/60 to-transparent" />
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-2xl font-bold">Fixed scope</h3>
                 <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
