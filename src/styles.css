@@ -74,6 +74,12 @@
     border-color: var(--color-border);
   }
 
+  /* Keeps section headings clear of the sticky header for any scroll we don't
+     drive ourselves (native anchor jumps, browser scroll restoration). */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

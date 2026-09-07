@@ -1,7 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { SiteHeader } from "@/components/SiteHeader";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -25,20 +38,80 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const budgets = ["< $10k", "$10k – $30k", "$30k – $80k", "$80k+"];
-const interests = ["React / Next.js", "Node.js APIs", "Laravel / PHP", "Python & data"];
+const budgets = ["< $10k", "$10k – $30k", "$30k – $80k", "$80k+"] as const;
+const interests = ["React / Next.js", "Node.js APIs", "Laravel / PHP", "Python & data"] as const;
+
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Please tell us your name.")
+    .max(80, "That name is longer than we can store."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "We need an email address to reply to.")
+    .email("That doesn't look like a valid email address."),
+  company: z.string().trim().max(80, "That company name is too long."),
+  interest: z.enum(interests),
+  budget: z.enum(budgets),
+  brief: z
+    .string()
+    .trim()
+    .min(20, "A sentence or two about the project helps us scope it properly.")
+    .max(2000, "Please keep the brief under 2000 characters."),
+});
+
+type ContactValues = z.infer<typeof contactSchema>;
+
+/** Marks a field the form won't submit without. */
+function Required() {
+  return (
+    <>
+      <span aria-hidden="true" className="ml-0.5 text-primary">
+        *
+      </span>
+      <span className="sr-only">(required)</span>
+    </>
+  );
+}
+
+const labelCls = "font-mono text-[11px] font-normal uppercase tracking-[0.14em] text-muted";
+const messageCls = "font-mono text-[11px] tracking-[0.02em]";
+
+/** Inputs pick up a red border once a field has actually failed validation. */
+function fieldCls(invalid: boolean, extra?: string) {
+  return cn(
+    "w-full rounded-lg border bg-background/70 px-3.5 py-2.5 text-sm text-foreground",
+    "placeholder:text-muted transition-colors focus:outline-none focus:ring-2",
+    invalid
+      ? "border-destructive/70 focus:border-destructive focus:ring-destructive/20"
+      : "border-input focus:border-primary focus:ring-primary/20",
+    extra,
+  );
+}
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const form = useForm<ContactValues>({
+    resolver: zodResolver(contactSchema),
+    // Hold off until a field has been visited, then keep it live as they fix it.
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      email: "",
+      company: "",
+      interest: interests[0],
+      budget: budgets[1],
+      brief: "",
+    },
+  });
+
+  function onSubmit(_values: ContactValues) {
     setSent(true);
     toast.success("Request received — we reply within one business day.");
   }
-
-  const inputCls =
-    "w-full rounded-lg border border-input bg-background/70 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors";
 
   return (
     <div className="min-h-screen metal-bg text-foreground font-body antialiased selection:bg-primary/20">
@@ -54,8 +127,8 @@ function ContactPage() {
               Tell us what you're building.
             </h1>
             <p className="mt-5 max-w-[42ch] text-pretty text-muted [animation:rise_750ms_var(--ease-machined)_260ms_both]">
-              Share the shape of the project — product, stack, timeline — and a senior engineer
-              (not a sales rep) will reply with a scoping plan.
+              Share the shape of the project — product, stack, timeline — and a senior engineer (not
+              a sales rep) will reply with a scoping plan.
             </p>
 
             <div className="mt-10 space-y-5 border-t border-border pt-8 [animation:rise_800ms_var(--ease-machined)_400ms_both]">
@@ -106,75 +179,146 @@ function ContactPage() {
                     </Link>
                   </div>
                 ) : (
-                  <form onSubmit={onSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                      <label className="block">
-                        <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                          Name
-                        </span>
-                        <input required placeholder="Ada Lovelace" className={inputCls} />
-                      </label>
-                      <label className="block">
-                        <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                          Work email
-                        </span>
-                        <input
-                          required
-                          type="email"
-                          placeholder="ada@company.com"
-                          className={inputCls}
+                  <Form {...form}>
+                    {/* noValidate hands validation to zod. Without it the browser's
+                        own bubble fires first and never matches the page design. */}
+                    <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field, fieldState }) => (
+                            <FormItem className="space-y-1.5">
+                              <FormLabel className={labelCls}>
+                                Name
+                                <Required />
+                              </FormLabel>
+                              <FormControl>
+                                <input
+                                  {...field}
+                                  autoComplete="name"
+                                  placeholder="Ada Lovelace"
+                                  className={fieldCls(!!fieldState.error)}
+                                />
+                              </FormControl>
+                              <FormMessage className={messageCls} />
+                            </FormItem>
+                          )}
                         />
-                      </label>
-                    </div>
-                    <label className="block">
-                      <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                        Company
-                      </span>
-                      <input placeholder="Company Ltd." className={inputCls} />
-                    </label>
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                      <label className="block">
-                        <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                          Stack interest
-                        </span>
-                        <select className={inputCls} defaultValue={interests[0]}>
-                          {interests.map((i) => (
-                            <option key={i}>{i}</option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="block">
-                        <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                          Budget
-                        </span>
-                        <select className={inputCls} defaultValue={budgets[1]}>
-                          {budgets.map((b) => (
-                            <option key={b}>{b}</option>
-                          ))}
-                        </select>
-                      </label>
-                    </div>
-                    <label className="block">
-                      <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                        Project brief
-                      </span>
-                      <textarea
-                        required
-                        rows={5}
-                        placeholder="What are you building, for whom, and by when?"
-                        className={`${inputCls} resize-none`}
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field, fieldState }) => (
+                            <FormItem className="space-y-1.5">
+                              <FormLabel className={labelCls}>
+                                Work email
+                                <Required />
+                              </FormLabel>
+                              <FormControl>
+                                <input
+                                  {...field}
+                                  type="email"
+                                  autoComplete="email"
+                                  placeholder="ada@company.com"
+                                  className={fieldCls(!!fieldState.error)}
+                                />
+                              </FormControl>
+                              <FormMessage className={messageCls} />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field, fieldState }) => (
+                          <FormItem className="space-y-1.5">
+                            <FormLabel className={labelCls}>Company</FormLabel>
+                            <FormControl>
+                              <input
+                                {...field}
+                                autoComplete="organization"
+                                placeholder="Company Ltd."
+                                className={fieldCls(!!fieldState.error)}
+                              />
+                            </FormControl>
+                            <FormMessage className={messageCls} />
+                          </FormItem>
+                        )}
                       />
-                    </label>
-                    <button
-                      type="submit"
-                      className="w-full rounded-lg bg-foreground px-5 py-3.5 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg"
-                    >
-                      Send the brief
-                    </button>
-                    <p className="text-center font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                      NDA-friendly · Response within one business day
-                    </p>
-                  </form>
+
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                        <FormField
+                          control={form.control}
+                          name="interest"
+                          render={({ field, fieldState }) => (
+                            <FormItem className="space-y-1.5">
+                              <FormLabel className={labelCls}>Stack interest</FormLabel>
+                              <FormControl>
+                                <select {...field} className={fieldCls(!!fieldState.error)}>
+                                  {interests.map((i) => (
+                                    <option key={i}>{i}</option>
+                                  ))}
+                                </select>
+                              </FormControl>
+                              <FormMessage className={messageCls} />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="budget"
+                          render={({ field, fieldState }) => (
+                            <FormItem className="space-y-1.5">
+                              <FormLabel className={labelCls}>Budget</FormLabel>
+                              <FormControl>
+                                <select {...field} className={fieldCls(!!fieldState.error)}>
+                                  {budgets.map((b) => (
+                                    <option key={b}>{b}</option>
+                                  ))}
+                                </select>
+                              </FormControl>
+                              <FormMessage className={messageCls} />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <FormField
+                        control={form.control}
+                        name="brief"
+                        render={({ field, fieldState }) => (
+                          <FormItem className="space-y-1.5">
+                            <FormLabel className={labelCls}>
+                              Project brief
+                              <Required />
+                            </FormLabel>
+                            <FormControl>
+                              <textarea
+                                {...field}
+                                rows={5}
+                                placeholder="What are you building, for whom, and by when?"
+                                className={fieldCls(!!fieldState.error, "resize-none")}
+                              />
+                            </FormControl>
+                            <FormMessage className={messageCls} />
+                          </FormItem>
+                        )}
+                      />
+
+                      <button
+                        type="submit"
+                        disabled={form.formState.isSubmitting}
+                        className="w-full rounded-lg bg-foreground px-5 py-3.5 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg disabled:pointer-events-none disabled:opacity-60"
+                      >
+                        {form.formState.isSubmitting ? "Sending…" : "Send the brief"}
+                      </button>
+                      <p className="text-center font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                        NDA-friendly · Response within one business day
+                      </p>
+                    </form>
+                  </Form>
                 )}
               </div>
             </div>

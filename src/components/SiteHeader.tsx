@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
+import { scrollToHash } from "@/lib/scroll-to-hash";
 
 const sections = [
   { label: "Stacks", hash: "stacks" },
@@ -9,6 +10,19 @@ const sections = [
 ];
 
 export function SiteHeader() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const onHome = pathname === "/";
+
+  // Navigating to the URL we're already on is a no-op in the router, so a repeat
+  // click on the active section would never scroll. Handle same-page clicks here
+  // and let `useHashScroll` take the cross-route ones.
+  function handleSectionClick(hash: string) {
+    return (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!onHome || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      scrollToHash(hash);
+    };
+  }
+
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/75 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
@@ -22,6 +36,7 @@ export function SiteHeader() {
               key={s.hash}
               to="/"
               hash={s.hash}
+              onClick={handleSectionClick(s.hash)}
               className="transition-colors duration-200 hover:text-foreground"
             >
               {s.label}
@@ -37,7 +52,7 @@ export function SiteHeader() {
         </nav>
         <Link
           to="/contact"
-            className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg"
+          className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-lg"
         >
           Start a build
         </Link>

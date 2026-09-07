@@ -15,9 +15,18 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
+        if (!entry) return;
+        // Reveal on scroll-in, and immediately for anything the page has already
+        // scrolled past — landing on /#work puts the sections above it out of
+        // view, and they would otherwise stay at opacity 0 forever.
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
           setShown(true);
           io.disconnect();
         }

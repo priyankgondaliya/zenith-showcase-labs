@@ -3,6 +3,8 @@ import { ArrowRight, ArrowUpRight, Check, Code2 } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { Reveal } from "@/components/Reveal";
 import { SiteHeader } from "@/components/SiteHeader";
+import { useHashScroll } from "@/hooks/use-hash-scroll";
+import { scrollToHash } from "@/lib/scroll-to-hash";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -111,6 +113,8 @@ const bars = [
 ];
 
 function Index() {
+  useHashScroll();
+
   return (
     <div className="min-h-screen metal-bg text-foreground font-body antialiased selection:bg-primary/20">
       <SiteHeader />
@@ -138,13 +142,15 @@ function Index() {
                 Book an engineering audit
                 <ArrowUpRight className="size-4" />
               </Link>
-              <a
-                href="#work"
+              <Link
+                to="/"
+                hash="work"
+                onClick={() => scrollToHash("work")}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background/50 px-5 py-3 text-sm font-medium text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
               >
                 See the work
                 <ArrowRight className="size-4" />
-              </a>
+              </Link>
             </div>
             <div className="mt-9 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted [animation:rise_800ms_var(--ease-machined)_520ms_both]">
               <span>React</span>
