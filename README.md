@@ -1,14 +1,21 @@
-# Welcome to your Lovable project
+# Ascend Digital Collective
+
+Need to create a website for a new start up it comany for pitch the new internation client 
+UI need to looks good 
+and for we are work in technlology loke react js , nextjs, nodejs  that means all js framenworks as well as laravel and as well as python 
+comany naeme need to lookss unique and logo also need to unique
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://zenith-showcase-labs.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1417c397-446b-4a1c-a7f1-974cf439a7cd).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +27,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
